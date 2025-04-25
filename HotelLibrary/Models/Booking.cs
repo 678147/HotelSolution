@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace HotelLibrary.Models
 {
     [Table("Booking")]
-    class Booking
+    public class Booking
     {
         [Column("Email")]
         public string Email { get; set; }
