@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace HotelLibrary.Models
 {
-    [Table("Maintenace")]
-    public class Maintenace
+    [Table("Maintenance")]
+    public class Maintenance
     {
         [Column("id")]
-        public int MaintenaceId { get; set; }
+        public int MaintenanceId { get; set; }
         [Column("RoomNumber")]
         public int RoomNumber { get; set; }
         [Column("Description")]
