@@ -113,7 +113,7 @@
             buttonSave.TabIndex = 8;
             buttonSave.Text = "Lagre";
             buttonSave.UseVisualStyleBackColor = true;
-            buttonSave.Click += buttonSave_Click_1;
+            buttonSave.Click += buttonSave_Click;
             // 
             // AddMaintenanceForm
             // 
