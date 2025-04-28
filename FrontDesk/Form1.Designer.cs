@@ -33,8 +33,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Text = "Form1";
         }
-
-        #endregion
     }
 }
 
