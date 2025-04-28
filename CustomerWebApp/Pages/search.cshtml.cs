@@ -1,20 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using HotelLibrary.DBContex; // your DbContext
-using HotelLibrary.Models; // your Room model
+using HotelLibrary.DBContex; 
+using HotelLibrary.Models; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HotelLibrary;
 
 namespace CustomerWebApp.Pages
 {
-    public class sokModel : PageModel
+    public class searchModel : PageModel
     {
         private readonly AppDbContext _context;
+        private readonly UtillFunctions _utillFunctions;
 
-        public sokModel(AppDbContext context)
+        public searchModel(AppDbContext context, UtillFunctions utillFunctions)
         {
             _context = context;
+            _utillFunctions = utillFunctions;
+            _utillFunctions = utillFunctions;
         }
 
         [BindProperty]
@@ -33,13 +37,11 @@ namespace CustomerWebApp.Pages
 
         public void OnGet()
         {
-            // nothing initially
         }
 
         public void OnPost()
         {
-            int roomTypeInt = -1;
-
+            int roomTypeInt = 1;
             if (RoomType == "Single")
             {
                 roomTypeInt = 1;
@@ -54,10 +56,16 @@ namespace CustomerWebApp.Pages
             }
             SearchResults = _context.Rooms
                 .Where(r => r.RoomSize >= RoomSize
-                            && r.RoomType == roomTypeInt  
-                           /* Here you would also check if room is available for the date range */
+                            && r.RoomType == roomTypeInt
+
                            )
                 .ToList();
+        }
+
+        public string GetRoomType(int roomType)
+        {
+            var roomTypeName = _utillFunctions.GetRoomTypeFromInt(roomType);
+            return roomTypeName.ToString();
         }
     }
 }

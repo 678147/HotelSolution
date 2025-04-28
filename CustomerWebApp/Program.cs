@@ -12,6 +12,8 @@ namespace CustomerWebApp
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            builder.Services.AddScoped<HotelLibrary.UtillFunctions>();
+
             // Configure session services
             builder.Services.AddDistributedMemoryCache();  // Add in-memory cache for sessions
             builder.Services.AddSession(options =>

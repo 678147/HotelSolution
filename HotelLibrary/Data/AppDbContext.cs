@@ -13,7 +13,12 @@ namespace HotelLibrary.DBContex
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { 
+        public AppDbContext()
+        {
+        }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
+        { 
         }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<User> Users { get; set; }
@@ -32,9 +37,11 @@ namespace HotelLibrary.DBContex
                 .HasKey(g => g.RoomNumber);
 
             modelBuilder.Entity<User>()
+                .ToTable("Users")
                 .HasKey(g => g.Email);
 
             modelBuilder.Entity<Booking>()
+                .ToTable("Booking")
                 .HasKey(g => new { g.Email, g.RoomNumber});
 
             modelBuilder.Entity<Maintenace>();

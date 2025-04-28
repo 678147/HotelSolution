@@ -5,14 +5,12 @@ namespace CustomerWebApp
 {
     public class CustomerFunction
     {
-        public void RegisterCustomer(string email, string name, string password)
+        public void RegisterCustomer(string email, string name, string password, AppDbContext context)
         {
-            using (var context = new AppDbContext())
-            {
-                if (context.Users.Any(u => u.Email == email))
-                {
-                    throw new InvalidOperationException("A user with this email already exists.");
-                }
+           if (context.Users.Any(u => u.Email == email))
+              {
+                 throw new InvalidOperationException("A user with this email already exists.");
+              }
 
                 var newUser = new User
                 {
@@ -24,7 +22,7 @@ namespace CustomerWebApp
                 context.Users.Add(newUser);
                 context.SaveChanges();
             }
-        }
+
 
         public bool LoginCustomer(string email, string password)
         {

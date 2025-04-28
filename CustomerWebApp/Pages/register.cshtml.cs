@@ -1,6 +1,6 @@
+using HotelLibrary.DBContex;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CustomerFunction;
 
 namespace CustomerWebApp.Pages
 {
@@ -20,6 +20,11 @@ namespace CustomerWebApp.Pages
 
         public string Message { get; set; }
 
+        private readonly AppDbContext _context;
+        public RegisterModel(AppDbContext context)
+        {
+            _context = context; 
+        }
         public void OnGet()
         {
         }
@@ -33,6 +38,7 @@ namespace CustomerWebApp.Pages
             }
 
             // TODO: Lagre brukeren i databasen
+            new CustomerFunction().RegisterCustomer(Email, Username, Password, _context);
 
             Message = "Registrering vellykket! Du kan nå logge inn.";
         }

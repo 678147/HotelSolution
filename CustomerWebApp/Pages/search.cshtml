@@ -1,5 +1,5 @@
 ﻿@page
-@model CustomerWebApp.Pages.sokModel
+@model CustomerWebApp.Pages.searchModel
 @{
     ViewData["Title"] = "Search for a Room";
 }
@@ -16,8 +16,8 @@
         <label>Room Type</label>
         <select asp-for="RoomType" class="form-control">
             <option value="">-- Select Room Type --</option>
-            <option>Standard</option>
-            <option>Deluxe</option>
+            <option>Single</option>
+            <option>Double</option>
             <option>Suite</option>
         </select>
     </div>
@@ -44,7 +44,8 @@
         <ul>
             @foreach (var room in Model.SearchResults)
             {
-                <li> Type: @room.RoomType, Size: @room.RoomSize beds</li>
+                var rT = @Model.GetRoomType(room.RoomType);
+                <li> Type: @rT, Size: @room.RoomSize beds <a href="/booking?roomType=@room.RoomType&roomSize=@room.RoomSize">Book</a></li>
             }
         </ul>
     }

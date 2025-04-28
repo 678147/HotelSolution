@@ -32,7 +32,7 @@ namespace CustomerWebApp.Pages
                 return Page();
             }
             HttpContext.Session.SetString("Username", Username);
-            return RedirectToPage("/sok");
+            return RedirectToPage("/search");
         }
     }
 }
