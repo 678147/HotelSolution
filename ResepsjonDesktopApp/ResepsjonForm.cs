@@ -27,10 +27,20 @@ namespace ResepsjonDesktopApp
 
         private void LoadMaintenanceTasks()
         {
+            UtillFunctions utilFunctions = new UtillFunctions();
             try
             {
-                var tasks = _dbContext.Maintenances.ToList();
-                dataGridViewMaintenance.DataSource = tasks;
+                var mainList = _dbContext.Maintenances
+                        .Select(m => new
+                        {
+                            m.MaintenanceId,
+                            m.RoomNumber,
+                            m.Description,
+                            TaskStatus = utilFunctions.GetTaskStatusFromInt(m.TaskStatus),
+                            TaskType = utilFunctions.GetMaintenanceTypeFromInt(m.TaskType)
+                        }).ToList();
+
+                dataGridViewMaintenance.DataSource = mainList;
             }
             catch (Exception ex)
             {

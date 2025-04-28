@@ -49,8 +49,8 @@ namespace ResepsjonDesktopApp
                     return;
                 }
 
-                int taskType = comboBoxTaskType.SelectedIndex;
-                int taskStatus = comboBoxTaskStatus.SelectedIndex;
+                int taskType = comboBoxTaskType.SelectedIndex+1;
+                int taskStatus = comboBoxTaskStatus.SelectedIndex+1;
 
                 var newTask = new Maintenance
                 {

@@ -36,14 +36,14 @@
             // dataGridViewMaintenance
             // 
             dataGridViewMaintenance.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewMaintenance.Location = new Point(128, 82);
+            dataGridViewMaintenance.Location = new Point(207, 44);
             dataGridViewMaintenance.Name = "dataGridViewMaintenance";
-            dataGridViewMaintenance.Size = new Size(600, 300);
+            dataGridViewMaintenance.Size = new Size(600, 446);
             dataGridViewMaintenance.TabIndex = 0;
             // 
             // buttonNewTask
             // 
-            buttonNewTask.Location = new Point(366, 210);
+            buttonNewTask.Location = new Point(80, 44);
             buttonNewTask.Name = "buttonNewTask";
             buttonNewTask.Size = new Size(102, 23);
             buttonNewTask.TabIndex = 1;
