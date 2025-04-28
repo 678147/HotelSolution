@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HotelLibrary;
 using HotelLibrary.DBContex;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MaintenanceApp
 {
@@ -30,30 +31,33 @@ namespace MaintenanceApp
             {
                 string description = descriptionT.Text;
                 int roomNumber = int.Parse(roomnr.Text);
-                int taskType;
-        
-                taskType = utilFunctions.GetTaskTypeFromString(typeM.SelectedItem.ToString());
+                if (typeM == null || taskS == null) { return; }
+                if (typeM.SelectedItem is ComboBoxItem selectedItem && taskS.SelectedItem is ComboBoxItem selectedTaskStatus )
+                {
+                    int taskType = utilFunctions.GetTaskTypeFromString(selectedItem.Content.ToString().ToLower().Trim());
 
-                var maintChange = context.Maintenances
-                    .Where(m => m.RoomNumber == roomNumber && m.TaskType == taskType)
-                    .FirstOrDefault();
-                if (maintChange != null)
-                { 
-                    if (description != "" || description != null) maintChange.Description = description;
-                    
-                    if(taskType < 3) maintChange.TaskStatus = taskType++;
-                    context.SaveChanges();
+                    int taskStatus = utilFunctions.GetTaskStatusFromString(selectedTaskStatus.Content.ToString().ToLower().Trim());
 
-                    var mainList = context.Maintenances
-                        .Where(m => m.TaskType == taskType)
-                        .Select(m => new
-                        {
-                            m.MaintenanceId,
-                            m.RoomNumber,
-                            m.Description,
-                            TaskStatus = utilFunctions.GetTaskStatusFromInt(m.TaskStatus)
-                        }).ToList();
-                    MaintenanceDataGrid.ItemsSource = mainList;
+                    var mainTchange = context.Maintenances
+                        .Where(m => m.RoomNumber == roomNumber && m.TaskType == taskType)
+                        .FirstOrDefault();
+                    if (mainTchange != null)
+                    {
+                        if (!string.IsNullOrEmpty(description)) { mainTchange.Description = description; }
+                        if (mainTchange.TaskStatus != taskStatus) { mainTchange.TaskStatus = taskStatus; }
+                        context.SaveChanges();
+
+                        var mainList = context.Maintenances
+                            .Where(m => m.TaskType == taskType)
+                            .Select(m => new
+                            {
+                                m.MaintenanceId,
+                                m.RoomNumber,
+                                m.Description,
+                                TaskStatus = utilFunctions.GetTaskStatusFromInt(m.TaskStatus)
+                            }).ToList();
+                        MaintenanceDataGrid.ItemsSource = mainList;
+                    }
                 }
                 else
                 {
@@ -64,16 +68,23 @@ namespace MaintenanceApp
 
         public void typeM_SelectionChanged(object Sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            using (var context = new AppDbContext())
+            using (var context = new AppDbContext())    
             {
-                if (typeM.SelectedItem == null) { return; }
-                else
+                if (typeM == null) { return; }
+                if (typeM.SelectedItem is ComboBoxItem selectedItem)
                 {
-
                     var utilFunctions = new UtillFunctions();
 
+                    // Ensure SelectedItem is not null before calling ToString()
 
-                    int taskType = utilFunctions.GetTaskTypeFromString(typeM.SelectedItem.ToString());
+                    string taskTypeS = selectedItem.Content.ToString().ToLower();
+                    if (string.IsNullOrEmpty(taskTypeS))
+                    {
+                        MessageBox.Show("Invalid selection. Please select a valid task type.");
+                        return;
+                    }
+
+                    int taskType = utilFunctions.GetTaskTypeFromString(taskTypeS);
 
                     var mainList = context.Maintenances
                         .Where(m => m.TaskType == taskType)
@@ -85,11 +96,11 @@ namespace MaintenanceApp
                             TaskStatus = utilFunctions.GetTaskStatusFromInt(m.TaskStatus)
                         }).ToList();
                     MaintenanceDataGrid.ItemsSource = mainList;
-
+                }
                 }
             }
         }
 
 
     }
-}
+

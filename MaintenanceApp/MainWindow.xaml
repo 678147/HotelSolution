@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 10">
-            <ComboBox x:Name="typeM" Width="200" Margin="0 0 10 0" >
+            <ComboBox x:Name="typeM" Width="200" Margin="0 0 10 0" SelectionChanged="typeM_SelectionChanged">
                 <ComboBoxItem Content="Cleaning" />
                 <ComboBoxItem Content="Maintenance" />
                 <ComboBoxItem Content="Service" />
@@ -22,7 +22,12 @@
             <TextBox x:Name="roomnr" Width="20" Margin="0 0 10 0" />
             <Label Content="Description:" VerticalAlignment="Center" Margin="0 0 10 0"/>
             <TextBox x:Name="descriptionT" Width="200" Margin="0 0 10 0" />
-            <Button Content="Progress Workorder and add notes" x:Name="changeWorkButton"/>
+            <ComboBox x:Name="taskS">
+                <ComboBoxItem Content="New" />
+                <ComboBoxItem Content="Inprogress" />
+                <ComboBoxItem Content="Finished" />
+            </ComboBox>
+            <Button Content="Submit Changes" x:Name="changeWorkButton" Click="changeWorkButton_Click"/>
 
         </StackPanel>
         <DataGrid x:Name="MaintenanceDataGrid" Grid.Row="2" AutoGenerateColumns="True" />
