@@ -31,9 +31,8 @@ namespace CustomerWebApp.Pages
                 Message = "Invalid username or password.";
                 return Page();
             }
-
             HttpContext.Session.SetString("Username", Username);
-            return RedirectToPage("/Home");
+            return RedirectToPage("/sok");
         }
     }
 }
