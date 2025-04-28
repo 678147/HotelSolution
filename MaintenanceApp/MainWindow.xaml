@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaintenanceApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="1000">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,11 +13,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 10">
-            <ComboBox x:Name="typeM" Width="200" Margin="0 0 10 0" />
-
+            <ComboBox x:Name="typeM" Width="200" Margin="0 0 10 0" >
+                <ComboBoxItem Content="Cleaning" />
+                <ComboBoxItem Content="Maintenance" />
+                <ComboBoxItem Content="Service" />
+            </ComboBox>
+            <Label Content="Room Nr:" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBox x:Name="roomnr" Width="20" Margin="0 0 10 0" />
+            <Label Content="Description:" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBox x:Name="descriptionT" Width="200" Margin="0 0 10 0" />
+            <Button Content="Progress Workorder and add notes" x:Name="changeWorkButton"/>
 
         </StackPanel>
-        <DataGrid x:Name="StudentDataGrid" Grid.Row="2" AutoGenerateColumns="True" />
+        <DataGrid x:Name="MaintenanceDataGrid" Grid.Row="2" AutoGenerateColumns="True" />
 
     </Grid>
 </Window>

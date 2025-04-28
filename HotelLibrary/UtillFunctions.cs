@@ -1,5 +1,6 @@
 ﻿using HotelLibrary.DBContex;
 using HotelLibrary.Models;
+using System;
 
 namespace HotelLibrary
 {
@@ -122,5 +123,19 @@ namespace HotelLibrary
             }
         }
 
+        public int GetTaskStatusFromString(string status) 
+        {
+            if (status.ToLower() == "new") return 1;
+            else if (status.ToLower() == "inprogress") return 2;
+            else if (status.ToLower() == "finished") return 3;
+            else throw new ArgumentOutOfRangeException("Invalid maintenance status");
+        }
+        public int GetTaskTypeFromString(string type)
+        {
+            if (type.ToLower() == "cleaning") return 1;
+            else if (type.ToLower() == "maintenance") return 2;
+            else if (type.ToLower() == "service") return 3;
+            else throw new ArgumentOutOfRangeException("Invalid maintenance type");
+        }
     }
 }
