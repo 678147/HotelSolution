@@ -21,6 +21,7 @@ namespace MaintenanceApp
         public MainWindow()
         {
             InitializeComponent();
+            LoadComboBoxOptions();
         }
 
         private void LoadComboBoxOptions()
@@ -28,10 +29,11 @@ namespace MaintenanceApp
             using var context = new AppDbContext();
             var utilFunctions = new UtillFunctions();
 
+            var mTypes = context.Maintenances.Select(m => m.TaskType).Distinct().ToList();
 
-            var mTypes = context.Maintenances.Select(m => utilFunctions.GetMaintenanceTypeFromInt(m.TaskType)).Distinct().ToList();
+            var mTypeItems = mTypes.Select(m => utilFunctions.GetMaintenanceTypeFromInt(m)).ToList();
 
-            maintenanceTypes.ItemsSource = mTypes;
+            typeM.ItemsSource = mTypeItems;
         }
     }
 }

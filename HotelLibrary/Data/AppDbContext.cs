@@ -19,7 +19,7 @@ namespace HotelLibrary.DBContex
         public DbSet<Room> Rooms { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<Maintenace> Maintenances { get; set; }
+        public DbSet<Maintenance> Maintenances { get; set; }
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -38,8 +38,9 @@ namespace HotelLibrary.DBContex
             modelBuilder.Entity<Booking>()
                 .HasKey(g => new { g.Email, g.RoomNumber});
 
-            modelBuilder.Entity<Maintenace>();
-                
+            modelBuilder.Entity<Maintenance>().HasKey(m => m.MaintenanceId);
+
+
         }
     }
 }
