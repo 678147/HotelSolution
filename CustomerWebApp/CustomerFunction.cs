@@ -5,7 +5,8 @@ namespace CustomerWebApp
 {
     public class CustomerFunction
     {
-        public void registerCustomer(string email, string name, string password) {
+        public void RegisterCustomer(string email, string name, string password)
+        {
             using (var context = new AppDbContext())
             {
                 if (context.Users.Any(u => u.Email == email))
@@ -17,14 +18,28 @@ namespace CustomerWebApp
                 {
                     Email = email,
                     Name = name,
-                    Password = password 
+                    Password = password
                 };
 
                 context.Users.Add(newUser);
                 context.SaveChanges();
             }
-
         }
 
+        public bool LoginCustomer(string email, string password)
+        {
+            using (var context = new AppDbContext())
+            {
+                var user = context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+                if (user != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
