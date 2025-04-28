@@ -1,3 +1,6 @@
+using HotelLibrary.DBContex;
+using Microsoft.EntityFrameworkCore;
+
 namespace CustomerWebApp
 {
     public class Program
@@ -9,7 +12,13 @@ namespace CustomerWebApp
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            builder.Services.AddDbContext<AppDbContext>(option =>
+                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+                );
+
             var app = builder.Build();
+
+            
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
