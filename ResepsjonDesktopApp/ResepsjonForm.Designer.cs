@@ -30,6 +30,7 @@
         {
             dataGridViewMaintenance = new DataGridView();
             buttonNewTask = new Button();
+            buttonManageRooms = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMaintenance).BeginInit();
             SuspendLayout();
             // 
@@ -45,17 +46,28 @@
             // 
             buttonNewTask.Location = new Point(80, 44);
             buttonNewTask.Name = "buttonNewTask";
-            buttonNewTask.Size = new Size(102, 23);
+            buttonNewTask.Size = new Size(111, 23);
             buttonNewTask.TabIndex = 1;
             buttonNewTask.Text = "Ny Oppgave";
             buttonNewTask.UseVisualStyleBackColor = true;
             buttonNewTask.Click += buttonNewTask_Click_1;
+            // 
+            // buttonManageRooms
+            // 
+            buttonManageRooms.Location = new Point(80, 87);
+            buttonManageRooms.Name = "buttonManageRooms";
+            buttonManageRooms.Size = new Size(111, 43);
+            buttonManageRooms.TabIndex = 2;
+            buttonManageRooms.Text = "Administrer Rom/Reservasjoner";
+            buttonManageRooms.UseVisualStyleBackColor = true;
+            buttonManageRooms.Click += buttonManageRooms_Click;
             // 
             // ResepsjonForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(889, 517);
+            Controls.Add(buttonManageRooms);
             Controls.Add(buttonNewTask);
             Controls.Add(dataGridViewMaintenance);
             Name = "ResepsjonForm";
@@ -68,5 +80,6 @@
 
         private DataGridView dataGridViewMaintenance;
         private Button buttonNewTask;
+        private Button buttonManageRooms;
     }
 }

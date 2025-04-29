@@ -65,6 +65,12 @@ namespace ResepsjonDesktopApp
         {
 
         }
+
+        private void buttonManageRooms_Click(object sender, EventArgs e)
+        {
+            var roomForm = new RoomReservationForm();
+            roomForm.ShowDialog();
+        }
     }
 
 }
