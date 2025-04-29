@@ -15,9 +15,9 @@ namespace HotelLibrary.Models
         [Column("RoomNumber")]
         public int RoomNumber { get; set; }
         [Column("CheckIn")]
-        public string CheckInDate { get; set; }
+        public DateTime CheckInDate { get; set; }
         [Column("CheckOut")]
-        public string CheckOutDate { get; set; }
+        public DateTime CheckOutDate { get; set; }
         [Column("checkedIn")]
         public Boolean CheckedIn { get; set; }
     }

@@ -6,17 +6,12 @@ namespace CustomerWebApp.Pages
     public class IndexModel : PageModel
     {
         [BindProperty]
-        public string Username { get; set; }  // <<== ADD THIS
+        public string Username { get; set; }  
         [BindProperty]
-        public string Password { get; set; }  // <<== AND THIS
+        public string Password { get; set; } 
 
         public string Message { get; set; }
 
-        private static readonly List<(string Username, string Password)> Users = new()
-        {
-            ("admin", "admin123"),
-            ("user", "user123")
-        };
 
         public void OnGet()
         {
@@ -24,15 +19,16 @@ namespace CustomerWebApp.Pages
 
         public IActionResult OnPost()
         {
-            var user = Users.FirstOrDefault(u => u.Username == Username && u.Password == Password);
-
-            if (user == default)
+            if (new CustomerFunction().LoginCustomer(Username, Password))
+            {
+                HttpContext.Session.SetString("Username", Username);
+                return RedirectToPage("/search");
+            }
+            else
             {
                 Message = "Invalid username or password.";
                 return Page();
             }
-            HttpContext.Session.SetString("Username", Username);
-            return RedirectToPage("/search");
         }
     }
 }

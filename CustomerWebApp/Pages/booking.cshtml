@@ -1,0 +1,31 @@
+﻿@page
+@model BookingPageModel
+
+@{
+    ViewData["Title"] = "Book a Room";
+}
+
+<h1>Book a Room</h1>
+
+<form method="post">
+    <div>
+        <label asp-for="Email">Email:</label><br />
+        <input asp-for="Email" type="email" required />
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="StartDate">Start Date:</label><br />
+        <input asp-for="StartDate" type="date" required />
+    </div>
+    <br />
+
+    <div>
+        <label asp-for="EndDate">End Date:</label><br />
+        <input asp-for="EndDate" type="date" required />
+    </div>
+    <br />
+
+    <button type="submit">Finish Booking</button>
+    <a asp-page="/Search" style="margin-left: 10px;">Back to Search</a>
+</form>

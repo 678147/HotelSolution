@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using HotelLibrary.DBContex; 
-using HotelLibrary.Models; 
+using HotelLibrary.DBContex;
+using HotelLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,6 @@ namespace CustomerWebApp.Pages
         {
             _context = context;
             _utillFunctions = utillFunctions;
-            _utillFunctions = utillFunctions;
         }
 
         [BindProperty]
@@ -33,7 +32,7 @@ namespace CustomerWebApp.Pages
         [BindProperty]
         public DateTime EndDate { get; set; }
 
-        public List<Room> SearchResults { get; set; }
+        public List<RoomAvailability> SearchResults { get; set; }
 
         public void OnGet()
         {
@@ -54,12 +53,24 @@ namespace CustomerWebApp.Pages
             {
                 roomTypeInt = 3;
             }
-            SearchResults = _context.Rooms
-                .Where(r => r.RoomSize >= RoomSize
-                            && r.RoomType == roomTypeInt
 
-                           )
+            var rooms = _context.Rooms
+                .Where(r => r.RoomSize >= RoomSize && r.RoomType == roomTypeInt)
                 .ToList();
+    
+            SearchResults = rooms.Select(room =>
+            {
+                var nextBooking = _context.Bookings
+                    .Where(b => b.RoomNumber == room.RoomNumber && b.CheckInDate > DateTime.Now)
+                    .OrderBy(b => b.CheckInDate)
+                    .FirstOrDefault();
+
+                return new RoomAvailability
+                {
+                    Room = room,
+                    AvailableUntil = nextBooking != null ? nextBooking.CheckInDate : (DateTime?)null
+                };
+            }).ToList();
         }
 
         public string GetRoomType(int roomType)
@@ -67,5 +78,11 @@ namespace CustomerWebApp.Pages
             var roomTypeName = _utillFunctions.GetRoomTypeFromInt(roomType);
             return roomTypeName.ToString();
         }
+    }
+
+    public class RoomAvailability
+    {
+        public Room Room { get; set; }
+        public DateTime? AvailableUntil { get; set; }
     }
 }

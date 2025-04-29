@@ -6,20 +6,22 @@ namespace HotelLibrary
 {
     public class UtillFunctions
     {
-        public void registerBooking(string email, int roomNumber, string checkInDate, string checkOutDate)
+        public void registerBooking(string email, int roomNumber, DateTime checkInDate, DateTime checkOutDate)
         {
             using (var context = new AppDbContext())
             {
-                DateTime newCheckIn = DateTime.Parse(checkInDate);
-                DateTime newCheckOut = DateTime.Parse(checkOutDate);
+                DateTime newCheckIn = checkInDate;
+                DateTime newCheckOut = checkOutDate;
+
                 bool isAvailable = context.Bookings.Any(b =>
                      b.RoomNumber == roomNumber &&
                      (
-                         (newCheckIn >= DateTime.Parse(b.CheckInDate) && newCheckIn < DateTime.Parse(b.CheckOutDate)) ||
-                         (newCheckOut > DateTime.Parse(b.CheckInDate) && newCheckOut <= DateTime.Parse(b.CheckOutDate)) ||
-                         (newCheckIn <= DateTime.Parse(b.CheckInDate) && newCheckOut >= DateTime.Parse(b.CheckOutDate))
+                         (newCheckIn.CompareTo(b.CheckInDate) >= 0 && newCheckIn.CompareTo(b.CheckOutDate) < 0) ||
+                         (newCheckOut.CompareTo(b.CheckInDate) > 0 && newCheckOut.CompareTo(b.CheckOutDate) <= 0) ||
+                         (newCheckIn.CompareTo(b.CheckInDate) <= 0 && newCheckOut.CompareTo(b.CheckOutDate) >= 0)
                      )
                  );
+
                 if (isAvailable)
                 {
                     throw new InvalidOperationException("The room is already booked for the selected time period.");

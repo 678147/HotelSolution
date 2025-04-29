@@ -24,11 +24,11 @@ namespace CustomerWebApp
             }
 
 
-        public bool LoginCustomer(string email, string password)
+        public bool LoginCustomer(string name, string password)
         {
             using (var context = new AppDbContext())
             {
-                var user = context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+                var user = context.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
                 if (user != null)
                 {
                     return true;

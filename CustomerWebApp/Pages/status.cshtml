@@ -1,0 +1,43 @@
+﻿@page
+@model StatusModel
+@{
+    ViewData["Title"] = "Booking Status";
+}
+
+<h2>Check Your Booking Status</h2>
+
+<form method="post" style="margin-bottom: 20px;">
+    <label for="email">Email Address:</label>
+    <input type="email" name="Email" id="email" value="@Model.Email" required style="margin-left:10px; margin-right:10px;" />
+    <button type="submit">Search</button>
+</form>
+
+@if (Model.Bookings != null && Model.Bookings.Any())
+{
+    <h3>Bookings for @Model.Email</h3>
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th style="padding:10px; border-bottom:1px solid #ccc; text-align:left;">Room Nr</th>
+                <th style="padding:10px; border-bottom:1px solid #ccc; text-align:left;">Start Date</th>
+                <th style="padding:10px; border-bottom:1px solid #ccc; text-align:left;">End Date</th>
+                <th style="padding:10px; border-bottom:1px solid #ccc; text-align:left;">Checked In</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model.Bookings)
+            {
+                <tr>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">@booking.RoomNumber</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">@booking.CheckInDate.ToShortDateString()</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">@booking.CheckOutDate.ToShortDateString()</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">@(booking.CheckedIn ? "Yes" : "No")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.Bookings != null)
+{
+    <p>No bookings found for this email.</p>
+}

@@ -37,7 +37,6 @@ namespace CustomerWebApp.Pages
                 return;
             }
 
-            // TODO: Lagre brukeren i databasen
             new CustomerFunction().RegisterCustomer(Email, Username, Password, _context);
 
             Message = "Registrering vellykket! Du kan nå logge inn.";
